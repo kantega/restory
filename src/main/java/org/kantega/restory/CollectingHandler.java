@@ -16,7 +16,6 @@
 
 package org.kantega.restory;
 
-import javax.annotation.Resource;
 import javax.ws.rs.core.Response;
 import javax.xml.namespace.QName;
 import javax.xml.transform.OutputKeys;
@@ -26,11 +25,11 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.ws.BindingProvider;
-import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 import java.io.StringWriter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -39,10 +38,6 @@ import java.util.Set;
  *
  */
 public class CollectingHandler implements SOAPHandler<SOAPMessageContext> {
-
-    @Resource
-    private WebServiceContext webServiceContext;
-
 
     @Override
     public Set<QName> getHeaders() {
@@ -84,6 +79,10 @@ public class CollectingHandler implements SOAPHandler<SOAPMessageContext> {
             msg.setPayload(writer.toString());
             msg.setAddress((String) context.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY));
             msg.setMethod("POST");
+            String soapAction = (String) context.get(BindingProvider.SOAPACTION_URI_PROPERTY);
+            if(soapAction != null) {
+                msg.setHeaders(Collections.singletonMap("Soap-Action", Collections.singletonList(soapAction)));
+            }
             Collector.newExchange(msg);
         } else {
             CollectedResponse msg = new CollectedResponse();
