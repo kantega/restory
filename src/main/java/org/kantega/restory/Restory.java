@@ -22,6 +22,10 @@ import org.junit.runners.model.Statement;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Configurable;
+import javax.xml.ws.Binding;
+import javax.xml.ws.handler.Handler;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -50,4 +54,16 @@ public class Restory implements TestRule {
         configurable.register(CollectingFilter.class);
     }
 
+    public void configure(Binding binding) {
+
+        List<Handler> handlerChain = new ArrayList<>();
+        List<Handler> existingHandlers = binding.getHandlerChain();
+        if(existingHandlers != null) {
+            handlerChain.addAll(existingHandlers);
+        }
+
+        handlerChain.add(new CollectingHandler());
+
+        binding.setHandlerChain(handlerChain);
+    }
 }

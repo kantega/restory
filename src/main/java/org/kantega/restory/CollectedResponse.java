@@ -16,23 +16,24 @@
 
 package org.kantega.restory;
 
-import javax.ws.rs.core.MultivaluedMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
  */
 public class CollectedResponse {
-    private MultivaluedMap<String, String> headers;
+    private Map<String, List<String>> headers;
     private String payload;
     private int responseCode;
     private String responseReason;
 
 
-    public void setHeaders(MultivaluedMap<String, String> headers) {
+    public void setHeaders(Map<String, List<String>> headers) {
         this.headers = headers;
     }
 
-    public MultivaluedMap<String, String> getHeaders() {
+    public Map<String, List<String>> getHeaders() {
         return headers;
     }
 

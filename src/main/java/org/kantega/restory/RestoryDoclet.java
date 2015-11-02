@@ -19,7 +19,6 @@ package org.kantega.restory;
 import com.sun.javadoc.*;
 import org.junit.runner.Description;
 
-import javax.ws.rs.core.MultivaluedMap;
 import java.io.*;
 import java.util.HashSet;
 import java.util.List;
@@ -183,10 +182,10 @@ public class RestoryDoclet {
         return classDoc.qualifiedName().equals(description.getClassName());
     }
 
-    private static void printHeaders(PrintWriter w, MultivaluedMap<String, String> headers, Set<String> ignoredHeaders) {
+    private static void printHeaders(PrintWriter w, Map<String, List<String>> headers, Set<String> ignoredHeaders) {
 
         for (Map.Entry<String, List<String>> entry : headers.entrySet()) {
-            if(! ignoredHeaders.contains(entry.getKey().toLowerCase())) {
+            if(entry.getKey() != null && ! ignoredHeaders.contains(entry.getKey().toLowerCase())) {
                 for (String value : entry.getValue()) {
                     w.println(entry.getKey() + ": " + value);
                 }
