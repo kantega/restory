@@ -19,7 +19,7 @@ Restory is added to your Maven POM with the following dependency:
 
 ## Adding Restory to your tests
 
-Create JUnit integration tests like this:
+Create your JUnit integration tests with a @Rule annotated Restory instance, like this:
 
     /**
      * The API allows looking up user profiles based on a user name
@@ -48,7 +48,7 @@ Create JUnit integration tests like this:
 
     }
 
-Then create a JUnit test suite like this, adding your set of suite classes:
+Then create a JUnit test suite like this, adding your set of suite classes. You need a @ClassRule annotated SuiteRestory:
 
     @RunWith(Suite.class)
     @Suite.SuiteClasses(UserProfiles.class)
