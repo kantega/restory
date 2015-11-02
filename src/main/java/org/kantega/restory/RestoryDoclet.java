@@ -39,6 +39,7 @@ public class RestoryDoclet {
     static {
         ignoredRequestHeaders.add("user-agent");
         ignoredResponseHeaders.add("server");
+        ignoredResponseHeaders.add("date");
     }
 
     public static boolean start(RootDoc root) throws IOException {
@@ -83,6 +84,9 @@ public class RestoryDoclet {
                 w.println("</p>");
 
                 for (MethodDoc methodDoc : classDoc.methods()) {
+                    String methodKey = methodDoc.containingClass().qualifiedName() + "::" + methodDoc.name();
+                    w.println("<a name='" + methodKey +"'></a>");
+
                     printTitles(w, methodDoc, 3);
                     w.println("<p>");
                     w.println(methodDoc.commentText());
@@ -91,8 +95,6 @@ public class RestoryDoclet {
                     CollectedExchange exchange = exchanges.get(methodDoc.containingClass().qualifiedName() +"::" +methodDoc.name());
                     if(exchange != null) {
 
-                        String methodKey = methodDoc.containingClass().qualifiedName() + "::" + methodDoc.name();
-                        w.println("<a name='" + methodKey +"'></a>");
                         w.println("<p><code>");
                         w.println(exchange.getRequest().getMethod() + " " + exchange.getRequest().getAddress());
                         w.println("</code></p>");
