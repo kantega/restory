@@ -10,12 +10,12 @@ the implementation, to automatically capture test data and ensures your sampled 
 
 Restory is added to your Maven POM with the following dependency:
 
-  <dependency>
-      <groupId>org.kantega.restory</groupId>
-      <artifactId>restory</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>test</scope>
-  </dependency>
+    <dependency>
+        <groupId>org.kantega.restory</groupId>
+        <artifactId>restory</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <scope>test</scope>
+    </dependency>
 
 ## Adding Restory to your tests
 
