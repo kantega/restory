@@ -38,6 +38,7 @@ public class RestoryDoclet {
 
     static {
         ignoredRequestHeaders.add("user-agent");
+        ignoredResponseHeaders.add("server");
     }
 
     public static boolean start(RootDoc root) throws IOException {
